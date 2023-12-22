@@ -61,7 +61,7 @@ socketIO.on('connection', (socket) => {
     socket.on("addCarLog", async (car) => {
         try {
             await carSchema.create(car)
-            socket.broadcast.emit("newLog", (car))
+            socket.broadcast.emit("newLog", car)
         } catch (e) {
             console.log('error sending data to database: ', e)
         }
