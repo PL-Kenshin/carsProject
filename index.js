@@ -1,7 +1,7 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
-const http = require('http').Server(app);
+const https = require('https').Server(app);
 const config = require('./config').config;
 require('dotenv').config();
 const socketIO = require('socket.io')(https, {
@@ -76,7 +76,7 @@ socketIO.on('connection', (socket) => {
 });
 
 
-http.listen(config.port, async () => {
+https.listen(config.port, async () => {
     console.log(`Server listening on ${config.port}`);
     await mongo().then(async (mongoose) => {
         console.log('connected to database')
