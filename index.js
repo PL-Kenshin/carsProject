@@ -1,12 +1,12 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
-const https = require('https').Server(app);
+const http = require('http').Server(app);
 const config = require('./config').config;
 require('dotenv').config();
-const socketIO = require('socket.io')(https, {
+const socketIO = require('socket.io')(http, {
     cors: {
-        origin: "https://localhost:3000"
+        origin: "http://localhost:3000"
     }
 });
 const mongoose = require('mongoose')
@@ -76,7 +76,7 @@ socketIO.on('connection', (socket) => {
 });
 
 
-https.listen(config.port, async () => {
+http.listen(config.port, async () => {
     console.log(`Server listening on ${config.port}`);
     await mongo().then(async (mongoose) => {
         console.log('connected to database')
