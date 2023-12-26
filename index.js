@@ -4,9 +4,9 @@ const cors = require("cors")
 const http = require('http').Server(app);
 const config = require('./config').config;
 require('dotenv').config();
-const socketIO = require('socket.io')(http, {
+const socketIO = require('socket.io')(https, {
     cors: {
-        origin: "http://localhost:3000"
+        origin: "https://localhost:3000"
     }
 });
 const mongoose = require('mongoose')
@@ -61,7 +61,7 @@ socketIO.on('connection', (socket) => {
     socket.on("addCarLog", async (car) => {
         try {
             await carSchema.create(car)
-            socketIO.emit("newLog", car)
+            socket.broadcast.emit("newLog", car)
         } catch (e) {
             console.log('error sending data to database: ', e)
         }
