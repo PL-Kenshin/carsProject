@@ -27,7 +27,7 @@ socketIO.on('connection', (socket) => {
 
     socket.on("getAllCars", async (callback) => {
         try {
-            let cars = await carSchema.find().sort({ "logDate": 1 }).limit(100)
+            let cars = await carSchema.find().sort({ "logDate": -1 }).limit(100)
             callback({
                 cars: cars
             })
@@ -38,7 +38,7 @@ socketIO.on('connection', (socket) => {
 
     socket.on("getSpecifiedCarData", async (id, callback) => {
         try {
-            let carRecords = await carSchema.find({"id":id}).sort({"logDate": 1 }).limit(100)
+            let carRecords = await carSchema.find({"id":id}).sort({"logDate": -1 }).limit(100)
             callback({
                 carRecords: carRecords
             })
